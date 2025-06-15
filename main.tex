@@ -190,7 +190,7 @@
 \begin{itemize}
     \item \textbf{Extracted structure} against \textbf{Ground-truth} structure
     \item Custom evaluation pipeline: \textbf{Precision}, \textbf{Recall}, \textbf{F1} for entities, events and their assignments
-    \item Entity matching using fuzzy string similarity
+    \item Entity matching using edit distance
     \item Event matching using semantic similarity
 \end{itemize}
 \end{frame}
@@ -202,10 +202,28 @@
         \item Created ground-truth dataset
         \item 6 distinct media cases from different sections 
         \item Each case consists of 5 articles
-        \item Total of 348 entities
-        \item Total of 406 events
+        \item Total of 348 entities and 406 events
         \item Split: 1 case evaluation / 5 cases testing
     \end{itemize}
+    \vspace{1em}
+    \begin{columns}
+        \begin{column}{0.45\textwidth}
+            \colheader{Selected media cases}
+            \begin{enumerate}
+                \item Český lev Film Award
+                \item Senate Elections 2018
+                \item Olympic Games Beijing 2022
+            \end{enumerate}
+        \end{column}
+        \begin{column}{0.45\textwidth}
+            \begin{enumerate}
+                \setcounter{enumi}{3}
+                \item COVID-19
+                \item Trump-Kim Summit
+                \item Global Warming
+            \end{enumerate}
+        \end{column}
+    \end{columns}
 \end{frame}
 %------------------------------------------------
 
@@ -232,11 +250,9 @@
 %------------------------------------------------
 \begin{frame}{Results \& Discussion}
 \begin{itemize}
-    \item Commercial LLMs outperform open-source
-
+    \item Solid results for baseline pipeline (0.57 F1 Score)
     \item Prompt engineering and batch size tuning provide marginal improvements
-
-    \item Custom evaluation shows progress across pipeline versions
+    \item Commercial LLMs outperform open-source
 \end{itemize}
 
 \begin{figure}
@@ -250,9 +266,13 @@
 \begin{frame}{Conclusion}
 % \textbf{Conclusion}:
 \begin{itemize}
-    \item Introduced a reproducible, modular extraction pipeline for multi-document structured summarization
+    \item Introduced a \textit{reproducible}, \textit{extendable} and \textit{modular} \textbf{extraction pipeline} for multi-document structured summarization
 
-    \item Thorough analysis of the proposed solution
+    \item Creation of the \textbf{validation dataset}
+
+    \item Introduction of custom \textbf{evaluation framework} for structured data
+
+    \item Thorough \textbf{analysis} of the proposed solution
 
     \item Demonstrated feasibility and highlighted trade-offs between model types
 
@@ -304,11 +324,78 @@
 
 \begin{itemize}
     \item Matter of changing prompts and expected output schema
-    \item The performance with current setup would have to be validated
+    \item Possible hierarchical tree structure of the events
+    \item Evaluation either by evaluating sub-trees or by LLM-as-a-judge over the final tree structure
+    \item Approach is currently being validated in our research group
 \end{itemize}
 
 \end{frame}
 %------------------------------------------------
+
+\begin{frame}{V1 Results}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/pipeline-v1-precision-recall-bar.pdf}
+\end{frame}
+
+\begin{frame}{V1 Metrics comparison}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/pipeline-v1-coord-per-metric.pdf}
+\end{frame}
+
+\begin{frame}{V1 Dataset comparison}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/pipeline-v1-coord-per-dataset.pdf}
+\end{frame}
+
+\begin{frame}{V1 Stage comparison}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/pipeline-v1-coord-per-stage.pdf}
+\end{frame}
+
+\begin{frame}{V2 Prompt tuning}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/v1-iter-all.pdf}
+\end{frame}
+
+\begin{frame}{V2 Results}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/pipeline-v2-precision-recall-bar.pdf}
+\end{frame}
+
+\begin{frame}{V3 Results}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/pipeline-v3-precision-recall-bar.pdf}
+\end{frame}
+
+\begin{frame}{V1 - V2 Comparison}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/v1-v2-f-diff.pdf}
+\end{frame}
+
+\begin{frame}{V1 - V2 Comparison}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/v1-v2-data-points.pdf}
+\end{frame}
+
+\begin{frame}{V2 - V3 Comparison}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/v2-v3-f-diff.pdf}
+\end{frame}
+
+\begin{frame}{V3 - V4 Comparison}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/v2-v3-data-points.pdf}
+\end{frame}
+
+\begin{frame}{Temperature Influence}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/temperature.pdf}
+\end{frame}
+
+\begin{frame}{Overall Performance}
+    \centering
+    \includegraphics[height=0.65\paperheight]{figures/suppport/model-performance-heatmaps.png}
+\end{frame}
 
 \backupend
 
